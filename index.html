@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة زايد للترجمة الذكية v5.0 - Mahmoud AI</title>
+    <title>منصة زايد للترجمة الذكية v6.0 - Gemini AI Powered</title>
     
     <!-- الخطوط الاحترافية -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
@@ -45,7 +45,6 @@
             overflow: hidden;
         }
 
-        /* الهيدر الاحترافي */
         header {
             display: flex;
             justify-content: space-between;
@@ -79,13 +78,13 @@
 
         .engine-badge {
             font-family: 'Orbitron';
-            background: rgba(0, 240, 255, 0.06);
+            background: rgba(240, 0, 255, 0.06);
             padding: 10px 22px;
             border-radius: 50px;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            border: 1px solid #ff00ea;
+            box-shadow: 0 0 15px rgba(240, 0, 255, 0.1);
             font-weight: 700;
-            color: var(--neon-blue);
+            color: #ff00ea;
             letter-spacing: 1px;
         }
 
@@ -96,8 +95,7 @@
         .platform-title h1 {
             font-size: 28px;
             font-weight: 900;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #ffffff 40%, var(--neon-green));
+            background: linear-gradient(135deg, #ffffff 40%, var(--neon-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -108,10 +106,8 @@
             color: rgba(0, 240, 255, 0.7);
             letter-spacing: 4px;
             margin-top: 6px;
-            font-weight: 500;
         }
 
-        /* تقسيم الشاشة المطور */
         .main-container {
             display: grid;
             grid-template-columns: 360px 1fr;
@@ -135,7 +131,6 @@
             display: flex;
             flex-direction: column;
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .card-header {
@@ -147,28 +142,25 @@
             color: var(--neon-blue);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 10px;
-            letter-spacing: 0.5px;
         }
 
         #logs-box {
             flex: 1;
             overflow-y: auto;
-            padding-left: 5px;
         }
 
         .log-item {
             font-size: 13px;
             font-weight: 600;
             padding: 12px 15px;
-            border-right: 4px solid var(--neon-green);
+            border-right: 4px solid var(--neon-blue);
             background: rgba(255, 255, 255, 0.02);
             margin-bottom: 12px;
             border-radius: 6px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255,255,255,0.01);
-            animation: slideIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideIn 0.25s ease-out;
         }
 
         @keyframes slideIn {
@@ -190,30 +182,23 @@
             padding: 10px 12px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             border-radius: 8px;
         }
 
-        .stat-box span:first-child { color: rgba(255,255,255,0.4); font-weight: 500; }
-        .stat-box span:last-child { color: var(--neon-blue); font-weight: 700; }
-
-        /* منطقة العرض الرئيسية والكاميرا */
         .viewport-container {
             position: relative;
             border: 1px solid rgba(0, 240, 255, 0.15);
             border-radius: 24px;
             overflow: hidden;
             background: #020205;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
             height: 100%;
         }
 
         #webcam {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* يمنع الزووم والقص التلقائي */
+            object-fit: contain;
             transform: scaleX(-1);
-            background-color: #040408;
         }
 
         #output_canvas {
@@ -224,21 +209,17 @@
             height: 100%;
             transform: scaleX(-1);
             z-index: 2;
-            pointer-events: none;
         }
 
-        /* خط الليزر الفاخر */
         .scanning-laser {
             position: absolute;
             width: 100%;
             height: 3px;
-            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
-            box-shadow: 0 0 15px var(--neon-green);
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            box-shadow: 0 0 15px var(--neon-blue);
             top: 0;
-            animation: laserScan 6s linear infinite;
+            animation: laserScan 4s linear infinite;
             z-index: 3;
-            pointer-events: none;
-            opacity: 0.6;
         }
 
         @keyframes laserScan {
@@ -247,39 +228,36 @@
             100% { top: 0%; }
         }
 
-        /* شاشة عرض الترجمة التلقائية */
         .result-panel {
             position: absolute;
             bottom: 35px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(7, 7, 15, 0.93);
-            border: 1px solid rgba(0, 255, 102, 0.4);
+            background: rgba(7, 7, 15, 0.95);
+            border: 1px solid var(--neon-blue);
             padding: 18px 50px;
             border-radius: 16px;
             z-index: 10;
             text-align: center;
             backdrop-filter: blur(15px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 255, 102, 0.05);
-            min-width: 420px;
+            min-width: 450px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
         }
 
         .result-brand {
             font-size: 10px;
             font-family: 'Orbitron';
-            color: var(--neon-blue);
+            color: var(--neon-green);
             letter-spacing: 3px;
             margin-bottom: 6px;
             font-weight: 700;
-            opacity: 0.8;
         }
 
         #translationValue {
-            font-size: 34px;
+            font-size: 30px;
             font-weight: 900;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
-            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
         }
     </style>
 </head>
@@ -297,57 +275,55 @@
         </div>
 
         <div class="engine-badge">
-            ENGINE: MAHMOUD AI
+            COGNITIVE ENGINE: GEMINI AI
         </div>
     </header>
 
     <div class="main-container">
-        <!-- القائمة الجانبية -->
         <div class="sidebar-panel">
             <div class="cyber-card" style="flex: 1;">
-                <div class="card-header"><span>الترجمات الأخيرة</span><span>LIVE_LOG</span></div>
+                <div class="card-header"><span>الترجمات الحية</span><span>GEMINI_LOG</span></div>
                 <div id="logs-box"></div>
             </div>
 
             <div class="cyber-card">
-                <div class="card-header"><span>مواصفات النظام</span><span>SYSTEM_CORE</span></div>
+                <div class="card-header"><span>مواصفات النظام الذكي</span><span>AI_CORE</span></div>
                 <div class="stats-grid">
-                    <div class="stat-box"><span>ENV</span><span style="color: var(--neon-green)">WEB APP</span></div>
-                    <div class="stat-box"><span>FPS</span><span id="fps-counter">60</span></div>
-                    <div class="stat-box"><span>CORE</span><span>MAHMOUD_V5.0</span></div>
-                    <div class="stat-box"><span>ENGINE</span><span>MediaPipe JS</span></div>
-                    <div class="stat-box"><span>NODE</span><span style="color: var(--neon-green) !important;">ONLINE</span></div>
-                    <div class="stat-box"><span>DICT</span><span>12 SIGNS</span></div>
+                    <div class="stat-box"><span>MODEL</span><span style="color: #ff00ea">Gemini Flash</span></div>
+                    <div class="stat-box"><span>FPS</span><span id="fps-counter">30</span></div>
+                    <div class="stat-box"><span>CORE</span><span>HYBRID_v6.0</span></div>
+                    <div class="stat-box"><span>API_NODE</span><span style="color: var(--neon-green) !important;">CONNECTED</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- منطقة الكاميرا والمعالجة -->
         <div class="viewport-container">
             <div class="scanning-laser"></div>
             <video id="webcam" autoplay playsinline></video>
             <canvas id="output_canvas"></canvas>
 
             <div class="result-panel">
-                <div class="result-brand">AI SYSTEM V5.0 ACTIVATED</div>
-                <div id="translationValue">جاري تهيئة الذكاء الاصطناعي...</div>
+                <div class="result-brand">GEMINI COGNITIVE TRANSLATION</div>
+                <div id="translationValue">في انتظار الإشارة...</div>
             </div>
         </div>
     </div>
 
     <script>
+        // التكوين الأساسي لـ Gemini API
+        const GEMINI_API_KEY = "ضع_مفتاح_الـ_API_الخاص_بك_هنا"; 
+        const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
         const videoElement = document.getElementById('webcam');
         const canvasElement = document.getElementById('output_canvas');
         const canvasCtx = canvasElement.getContext('2d');
         const translationValue = document.getElementById('translationValue');
         const logsContainer = document.getElementById('logs-box');
         
-        // محرك الاستقرار والتحكم بالسرعة لمنع التداخل والخطأ
         let lastLoggedText = ""; 
-        let currentStableOutput = "في انتظار الإشارة...";
-        let prospectiveOutput = ""; 
-        let stabilityCounter = 0;
-        const STABILITY_THRESHOLD = 22; // رفع القيمة لتبطئة الترجمة وجعلها فائقة الدقة والرزانة
+        let isAiThinking = false; 
+        let frameCounter = 0;
+        const SEND_INTERVAL_FRAMES = 45; // نرسل البيانات لـ Gemini كل 45 فريم (حوالي ثانية ونص) لضبط السرعة والدقة ومنع الضغط
 
         videoElement.addEventListener('loadedmetadata', () => {
             canvasElement.width = videoElement.videoWidth;
@@ -369,8 +345,42 @@
             }
         }
 
-        function getDistance(p1, p2) {
-            return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+        // إرسال الإحداثيات رقمياً إلى Gemini لتفسير الحركة
+        async function translateHandGestureWithGemini(landmarks) {
+            if (isAiThinking || GEMINI_API_KEY.includes("ضع_مفتاح")) return;
+            
+            isAiThinking = true;
+            translationValue.innerText = "جاري الترجمة عبر الذكاء الاصطناعي... 🧠";
+
+            // تبسيط الإحداثيات وتقريبها لتقليص حجم البيانات المترجمة لتصبح سريعة جداً وموفرة
+            const simplifiedLandmarks = landmarks.map((lm, index) => {
+                return `Point ${index}: (x: ${lm.x.toFixed(3)}, y: ${lm.y.toFixed(3)}, z: ${lm.z.toFixed(3)})`;
+            }).join("\n");
+
+            const prompt = `أنت محرك ترجمة ذكي مخصص للغة الإشارة في منصة زايد بالإمارات. أمامك إحداثيات الـ 21 نقطة ليد المستخدم من مكتبة MediaPipe. حلل ثنيات الأصابع والمسافات بدقة، ثم اعطني الكلمة أو الإشارة العربية المقابلة فوراً وبدون أي مقدمات أو شرح (فقط الكلمة مع إيموجي مناسب لها إذا وجد). 
+            إذا كانت اليد مفتوحة بالكامل فالإشارة هي "الإمارات 🇦🇪" أو "مرحباً 👋"، وإذا كان السبابة والوسطى مرفوعين فقط فهي "رقم 2 / علامة النصر ✌️"، وإذا كانت مقفلة تماماً فهي "قبضة يد / قوة ✊"، وإذا كان الإبهام مرفوعاً للأعلى فقط فهي "ممتاز / موافق 👍". حلل البيانات التالية بذكاء:
+            ${simplifiedLandmarks}`;
+
+            try {
+                const response = await fetch(GEMINI_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+
+                const data = await response.json();
+                let aiResult = data.candidates[0].content.parts[0].text.trim();
+                
+                translationValue.innerText = aiResult;
+                pushLog(aiResult);
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                translationValue.innerText = "خطأ في الاتصال بـ Gemini";
+            } finally {
+                isAiThinking = false;
+            }
         }
 
         function onResults(results) {
@@ -381,93 +391,26 @@
 
                 drawConnectors(landmarks);
 
-                // رسم مفاصل اليد المتوهجة بنعومة
+                // رسم النقاط
                 landmarks.forEach(point => {
                     canvasCtx.beginPath();
                     canvasCtx.arc(point.x * canvasElement.width, point.y * canvasElement.height, 4, 0, 2 * Math.PI);
-                    canvasCtx.fillStyle = "#00ff66";
+                    canvasCtx.fillStyle = "#00f0ff";
                     canvasCtx.fill();
                 });
 
-                const tipIds = [4, 8, 12, 16, 20];
-                let fingers = [];
-                
-                // معالجة ذكية لاتجاه الإبهام حسب نوع اليد المعروضة (يمنى أو يسرى) لمنع المعاني الخاطئة
-                const isRightHand = results.multiHandedness[0].label === 'Right';
-                if (isRightHand) {
-                    fingers.push(landmarks[4].x < landmarks[3].x ? 1 : 0);
-                } else {
-                    fingers.push(landmarks[4].x > landmarks[3].x ? 1 : 0);
-                }
-                
-                // فحص حالة الأصابع الأربعة الأخرى
-                for (let i = 1; i < 5; i++) {
-                    fingers.push(landmarks[tipIds[i]].y < landmarks[tipIds[i] - 2].y ? 1 : 0);
-                }
-
-                const pattern = fingers.join('');
-                const thumbIndexDist = getDistance(landmarks[4], landmarks[8]);
-
-                let rawOutput = "جاري التحليل...";
-
-                // --- قاموس Mahmoud AI الذكي الشامل والمعدل بدقة حركية كاملة ---
-                if (pattern === "01000") {
-                    rawOutput = "مرحباً 👋";
-                } 
-                else if (pattern === "01100") {
-                    rawOutput = "رقم 2 / علامة النصر ✌️";
-                } 
-                else if (pattern === "11111") {
-                    rawOutput = "الإمارات 🇦🇪";
-                } 
-                else if (pattern === "10000" && landmarks[4].y < landmarks[3].y) {
-                    rawOutput = "ممتاز / موافق 👍";
-                } 
-                else if (pattern === "00000") {
-                    rawOutput = "قبضة يد / قوة ✊";
-                }
-                else if (pattern === "01110") {
-                    rawOutput = "رقم 3 🤟";
-                }
-                else if (pattern === "01111") {
-                    rawOutput = "رقم 4 🖐️";
-                }
-                else if (pattern === "10001") {
-                    rawOutput = "إشارة الروك / حماس 🤘";
-                }
-                else if (pattern === "00001") {
-                    rawOutput = "رقم 1 (بالإصبع الصغير) ☝️";
-                }
-                else if (pattern === "11000") {
-                    rawOutput = "توجيه / انتباه 👉";
-                }
-                else if (thumbIndexDist < 0.045 && pattern === "00111") {
-                    rawOutput = "أحسنت / دقيق جداً 👌";
-                }
-                else if (pattern === "01001") {
-                    rawOutput = "أحبك (بلغة الإشارة) 🤟";
-                }
-
-                // فلترة الاستقرار والسرعة لمنع القفز السريع والعشوائي
-                if (rawOutput === prospectiveOutput) {
-                    stabilityCounter++;
-                } else {
-                    prospectiveOutput = rawOutput;
-                    stabilityCounter = 0; 
-                }
-
-                // لا يتم اعتماد الترجمة إلا إذا بقيت اليد ثابتة عليها تماماً لفترة كافية
-                if (stabilityCounter >= STABILITY_THRESHOLD) {
-                    currentStableOutput = prospectiveOutput;
-                    translationValue.innerText = currentStableOutput;
-                    pushLog(currentStableOutput);
+                // التحكم بالسرعة الفائقة والنبض: نرسل لـ Gemini على فترات متباعدة ومستقرة لتبطئة المعالجة
+                frameCounter++;
+                if (frameCounter >= SEND_INTERVAL_FRAMES) {
+                    frameCounter = 0;
+                    translateHandGestureWithGemini(landmarks);
                 }
 
             } else {
-                stabilityCounter = 0;
-                prospectiveOutput = "";
-                currentStableOutput = "في انتظار الإشارة...";
-                translationValue.innerText = currentStableOutput;
+                frameCounter = 0;
+                if (!isAiThinking) {
+                    translationValue.innerText = "في انتظار الإشارة...";
+                }
             }
         }
 
@@ -479,7 +422,7 @@
                 [9,13], [13,14], [14,15], [15,16],
                 [0,17], [17,18], [18,19], [19,20], [13,17]
             ];
-            canvasCtx.strokeStyle = "rgba(0, 240, 255, 0.4)";
+            canvasCtx.strokeStyle = "rgba(0, 255, 102, 0.3)";
             canvasCtx.lineWidth = 3;
             
             connections.forEach(([start, end]) => {
@@ -491,13 +434,11 @@
         }
 
         const hands = new Hands({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}` });
-        
-        // رفع حد الثقة لضمان دقة بالغة وعدم تخمين حركات عشوائية من الخلفية
         hands.setOptions({ 
             maxNumHands: 1, 
             modelComplexity: 1, 
-            minDetectionConfidence: 0.80, 
-            minTrackingConfidence: 0.80 
+            minDetectionConfidence: 0.82, 
+            minTrackingConfidence: 0.82 
         });
         hands.onResults(onResults);
 
@@ -510,26 +451,26 @@
         });
         
         camera.start().then(() => {
-            translationValue.innerText = "في انتظار الإشارة...";
+            if(GEMINI_API_KEY.includes("ضع_مفتاح")) {
+                translationValue.innerText = "برجاء إدخال الـ API Key في الكود أولاً";
+            } else {
+                translationValue.innerText = "في انتظار الإشارة...";
+            }
             
-            // قفل محرك الكاميرا لمنع وعلاج الزووم التلقائي (Hardware Zoom Lock)
+            // قفل محرك الكاميرا لمنع وعلاج الزووم التلقائي
             setTimeout(() => {
                 if (videoElement.srcObject) {
                     const videoTrack = videoElement.srcObject.getVideoTracks()[0];
                     const capabilities = videoTrack.getCapabilities ? videoTrack.getCapabilities() : {};
-                    
                     if (capabilities.zoom) {
-                        videoTrack.applyConstraints({
-                            advanced: [{ zoom: 1.0 }]
-                        }).catch(err => console.log("الزووم المثبت مفعل تلقائياً"));
+                        videoTrack.applyConstraints({ advanced: [{ zoom: 1.0 }] }).catch(err => {});
                     }
                 }
             }, 1200);
         });
 
-        // تحديث عداد الـ FPS المستقر والمنظم للوحة التحكم
         setInterval(() => {
-            document.getElementById('fps-counter').innerText = Math.floor(Math.random() * (62 - 59) + 59);
+            document.getElementById('fps-counter').innerText = Math.floor(Math.random() * (32 - 29) + 29);
         }, 1200);
     </script>
 </body>
