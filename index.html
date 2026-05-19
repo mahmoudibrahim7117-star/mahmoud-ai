@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة زايد للترجمة الذكية v6.0 - Gemini AI Powered</title>
+    <title>منصة زايد للترجمة الذكية v8.0 - Mahmoud AI Engine</title>
     
-    <!-- الخطوط الاحترافية -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
 
-    <!-- مكتبات MediaPipe الرسمية والمستقرة -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
@@ -55,7 +53,7 @@
             border-radius: 16px;
             margin-bottom: 25px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 255, 102, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .uae-badge {
@@ -66,7 +64,6 @@
             padding: 10px 22px;
             border-radius: 50px;
             border: 1px solid var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
         }
 
         .uae-badge span {
@@ -78,13 +75,13 @@
 
         .engine-badge {
             font-family: 'Orbitron';
-            background: rgba(240, 0, 255, 0.06);
+            background: rgba(0, 240, 255, 0.06);
             padding: 10px 22px;
             border-radius: 50px;
-            border: 1px solid #ff00ea;
-            box-shadow: 0 0 15px rgba(240, 0, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
             font-weight: 700;
-            color: #ff00ea;
+            color: var(--neon-blue);
             letter-spacing: 1px;
         }
 
@@ -160,12 +157,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: slideIn 0.25s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(15px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
         }
 
         .stats-grid {
@@ -185,6 +176,7 @@
             border-radius: 8px;
         }
 
+        /* حاوية العرض الرئيسية المحسنة لتصغير حجم الكاميرا */
         .viewport-container {
             position: relative;
             border: 1px solid rgba(0, 240, 255, 0.15);
@@ -192,12 +184,27 @@
             overflow: hidden;
             background: #020205;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* صندوق الكاميرا المصغر لمنع التكبير التلقائي الفوضوي */
+        .camera-wrapper {
+            position: relative;
+            width: 80%;       /* تقليل العرض ليكون ملموماً بدلاً من شاشة كاملة */
+            height: 75%;      /* تقليل الارتفاع المناسب وتوسيطه */
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            background-color: #000;
         }
 
         #webcam {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* لمنع قص الأطراف */
             transform: scaleX(-1);
         }
 
@@ -230,17 +237,17 @@
 
         .result-panel {
             position: absolute;
-            bottom: 35px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(7, 7, 15, 0.95);
             border: 1px solid var(--neon-blue);
-            padding: 18px 50px;
+            padding: 15px 45px;
             border-radius: 16px;
             z-index: 10;
             text-align: center;
             backdrop-filter: blur(15px);
-            min-width: 450px;
+            min-width: 420px;
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
         }
 
@@ -254,7 +261,7 @@
         }
 
         #translationValue {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 900;
             color: #ffffff;
             text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
@@ -275,44 +282,47 @@
         </div>
 
         <div class="engine-badge">
-            COGNITIVE ENGINE: GEMINI AI
+            COGNITIVE ENGINE: MAHMOUD AI
         </div>
     </header>
 
     <div class="main-container">
         <div class="sidebar-panel">
             <div class="cyber-card" style="flex: 1;">
-                <div class="card-header"><span>الترجمات الحية</span><span>GEMINI_LOG</span></div>
+                <div class="card-header"><span>الترجمات الحية</span><span>MAHMOUD_LOG</span></div>
                 <div id="logs-box"></div>
             </div>
 
             <div class="cyber-card">
                 <div class="card-header"><span>مواصفات النظام الذكي</span><span>AI_CORE</span></div>
                 <div class="stats-grid">
-                    <div class="stat-box"><span>MODEL</span><span style="color: #ff00ea">Gemini Flash</span></div>
+                    <div class="stat-box"><span>MODEL</span><span style="color: var(--neon-blue)">MAHMOUD AI</span></div>
                     <div class="stat-box"><span>FPS</span><span id="fps-counter">30</span></div>
-                    <div class="stat-box"><span>CORE</span><span>HYBRID_v6.0</span></div>
-                    <div class="stat-box"><span>API_NODE</span><span style="color: var(--neon-green) !important;">CONNECTED</span></div>
+                    <div class="stat-box"><span>CORE</span><span>HYBRID_v8.0</span></div>
+                    <div class="stat-box"><span>API_NODE</span><span style="color: var(--neon-green) !important;">ONLINE</span></div>
                 </div>
             </div>
         </div>
 
         <div class="viewport-container">
-            <div class="scanning-laser"></div>
-            <video id="webcam" autoplay playsinline></video>
-            <canvas id="output_canvas"></canvas>
+            <div class="camera-wrapper">
+                <div class="scanning-laser"></div>
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="output_canvas"></canvas>
+            </div>
 
             <div class="result-panel">
-                <div class="result-brand">GEMINI COGNITIVE TRANSLATION</div>
+                <div class="result-brand">MAHMOUD AI COGNITIVE TRANSLATION</div>
                 <div id="translationValue">في انتظار الإشارة...</div>
             </div>
         </div>
     </div>
 
     <script>
-        // التكوين الأساسي لـ Gemini API
+        // التكوين الأساسي للـ API الخلفي للترجمة الذكية
+        // *** برجاء إدخال مفتاح الـ API الخاص بك هنا ***
         const GEMINI_API_KEY = "ضع_مفتاح_الـ_API_الخاص_بك_هنا"; 
-        const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
         const videoElement = document.getElementById('webcam');
         const canvasElement = document.getElementById('output_canvas');
@@ -322,8 +332,10 @@
         
         let lastLoggedText = ""; 
         let isAiThinking = false; 
-        let frameCounter = 0;
-        const SEND_INTERVAL_FRAMES = 45; // نرسل البيانات لـ Gemini كل 45 فريم (حوالي ثانية ونص) لضبط السرعة والدقة ومنع الضغط
+        let currentProspectiveText = ""; 
+        let stabilityFrameCounter = 0; 
+        
+        const MIN_FRAMES_STABLE_BEFORE_SEND = 60; // فحص الثبات قبل المعالجة لتبسيط الاستجابة
 
         videoElement.addEventListener('loadedmetadata', () => {
             canvasElement.width = videoElement.videoWidth;
@@ -345,24 +357,23 @@
             }
         }
 
-        // إرسال الإحداثيات رقمياً إلى Gemini لتفسير الحركة
-        async function translateHandGestureWithGemini(landmarks) {
+        // معالجة البيانات وإرسالها لمحرك الترجمة الذكي لمحمود AI بالخلفية
+        async function translateHandGestureWithMahmoudAi(landmarks) {
             if (isAiThinking || GEMINI_API_KEY.includes("ضع_مفتاح")) return;
             
             isAiThinking = true;
-            translationValue.innerText = "جاري الترجمة عبر الذكاء الاصطناعي... 🧠";
+            translationValue.innerText = "جاري الترجمة عبر Mahmoud AI... 🧠";
 
-            // تبسيط الإحداثيات وتقريبها لتقليص حجم البيانات المترجمة لتصبح سريعة جداً وموفرة
             const simplifiedLandmarks = landmarks.map((lm, index) => {
-                return `Point ${index}: (x: ${lm.x.toFixed(3)}, y: ${lm.y.toFixed(3)}, z: ${lm.z.toFixed(3)})`;
+                return `Point ${index}: (x: ${lm.x.toFixed(3)}, y: ${lm.y.toFixed(3)})`;
             }).join("\n");
 
-            const prompt = `أنت محرك ترجمة ذكي مخصص للغة الإشارة في منصة زايد بالإمارات. أمامك إحداثيات الـ 21 نقطة ليد المستخدم من مكتبة MediaPipe. حلل ثنيات الأصابع والمسافات بدقة، ثم اعطني الكلمة أو الإشارة العربية المقابلة فوراً وبدون أي مقدمات أو شرح (فقط الكلمة مع إيموجي مناسب لها إذا وجد). 
-            إذا كانت اليد مفتوحة بالكامل فالإشارة هي "الإمارات 🇦🇪" أو "مرحباً 👋"، وإذا كان السبابة والوسطى مرفوعين فقط فهي "رقم 2 / علامة النصر ✌️"، وإذا كانت مقفلة تماماً فهي "قبضة يد / قوة ✊"، وإذا كان الإبهام مرفوعاً للأعلى فقط فهي "ممتاز / موافق 👍". حلل البيانات التالية بذكاء:
+            const prompt = `أنت محرك الترجمة الذكي الذاتي المسمى (Mahmoud AI) في منصة زايد بالإمارات. أمامك إحداثيات الـ 21 نقطة ليد المستخدم من مكتبة MediaPipe. حلل ثنيات الأصابع والمسافات بدقة، ثم اعطني الكلمة أو الإشارة العربية المقابلة فوراً وبدون أي مقدمات أو شرح (فقط الكلمة مع إيموجي مناسب لها إذا وجد). 
+            إذا كانت اليد مفتوحة بالكامل فالإشارة هي "التحية الإماراتية 🇦🇪" أو "مرحباً 👋"، وإذا كان السبابة والوسطى مرفوعين فقط فهي "رقم 2 / علامة النصر ✌️"، وإذا كانت مقفلة تماماً فهي "قبضة يد / قوة ✊"، وإذا كان الإبهام مرفوعاً للأعلى فقط فهي "ممتاز / موافق 👍". حلل البيانات التالية بذكاء:
             ${simplifiedLandmarks}`;
 
             try {
-                const response = await fetch(GEMINI_URL, {
+                const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -373,14 +384,21 @@
                 const data = await response.json();
                 let aiResult = data.candidates[0].content.parts[0].text.trim();
                 
-                translationValue.innerText = aiResult;
-                pushLog(aiResult);
+                if (videoElement.srcObject) {
+                    translationValue.innerText = aiResult;
+                    pushLog(aiResult);
+                }
             } catch (error) {
-                console.error("Gemini API Error:", error);
-                translationValue.innerText = "خطأ في الاتصال بـ Gemini";
+                console.error("Mahmoud AI Core Error:", error);
+                translationValue.innerText = "خطأ في الاتصال بالخادم الذكي";
             } finally {
                 isAiThinking = false;
+                stabilityFrameCounter = 0; 
             }
+        }
+
+        function getDistance(p1, p2) {
+            return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
         }
 
         function onResults(results) {
@@ -391,7 +409,6 @@
 
                 drawConnectors(landmarks);
 
-                // رسم النقاط
                 landmarks.forEach(point => {
                     canvasCtx.beginPath();
                     canvasCtx.arc(point.x * canvasElement.width, point.y * canvasElement.height, 4, 0, 2 * Math.PI);
@@ -399,15 +416,31 @@
                     canvasCtx.fill();
                 });
 
-                // التحكم بالسرعة الفائقة والنبض: نرسل لـ Gemini على فترات متباعدة ومستقرة لتبطئة المعالجة
-                frameCounter++;
-                if (frameCounter >= SEND_INTERVAL_FRAMES) {
-                    frameCounter = 0;
-                    translateHandGestureWithGemini(landmarks);
+                const distThumbIndex = getDistance(landmarks[4], landmarks[8]);
+                
+                let tempProspective = "";
+                if (landmarks[4].y < landmarks[3].y) {
+                    tempProspective = "تخمين: موافق 👍";
+                } else if (distThumbIndex < 0.05) {
+                    tempProspective = "تخمين: ممتاز 👌";
+                } else {
+                    tempProspective = "تخمين: معالجة الحركة";
+                }
+
+                if (tempProspective === currentProspectiveText) {
+                    stabilityFrameCounter++;
+                } else {
+                    currentProspectiveText = tempProspective;
+                    stabilityFrameCounter = 0; 
+                }
+
+                if (stabilityFrameCounter >= MIN_FRAMES_STABLE_BEFORE_SEND) {
+                    translateHandGestureWithMahmoudAi(landmarks);
+                    stabilityFrameCounter = -200; 
                 }
 
             } else {
-                frameCounter = 0;
+                stabilityFrameCounter = 0;
                 if (!isAiThinking) {
                     translationValue.innerText = "في انتظار الإشارة...";
                 }
@@ -437,8 +470,8 @@
         hands.setOptions({ 
             maxNumHands: 1, 
             modelComplexity: 1, 
-            minDetectionConfidence: 0.82, 
-            minTrackingConfidence: 0.82 
+            minDetectionConfidence: 0.85, 
+            minTrackingConfidence: 0.85 
         });
         hands.onResults(onResults);
 
@@ -457,7 +490,6 @@
                 translationValue.innerText = "في انتظار الإشارة...";
             }
             
-            // قفل محرك الكاميرا لمنع وعلاج الزووم التلقائي
             setTimeout(() => {
                 if (videoElement.srcObject) {
                     const videoTrack = videoElement.srcObject.getVideoTracks()[0];
