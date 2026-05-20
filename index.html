@@ -176,7 +176,6 @@
             border-radius: 8px;
         }
 
-        /* حاوية العرض الرئيسية المحسنة لتصغير حجم الكاميرا */
         .viewport-container {
             position: relative;
             border: 1px solid rgba(0, 240, 255, 0.15);
@@ -189,11 +188,10 @@
             align-items: center;
         }
 
-        /* صندوق الكاميرا المصغر لمنع التكبير التلقائي الفوضوي */
         .camera-wrapper {
             position: relative;
-            width: 80%;       /* تقليل العرض ليكون ملموماً بدلاً من شاشة كاملة */
-            height: 75%;      /* تقليل الارتفاع المناسب وتوسيطه */
+            width: 80%;       
+            height: 75%;      
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -204,7 +202,7 @@
         #webcam {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* لمنع قص الأطراف */
+            object-fit: contain; 
             transform: scaleX(-1);
         }
 
@@ -242,12 +240,12 @@
             transform: translateX(-50%);
             background: rgba(7, 7, 15, 0.95);
             border: 1px solid var(--neon-blue);
-            padding: 15px 45px;
+            padding: 18px 45px;
             border-radius: 16px;
             z-index: 10;
             text-align: center;
             backdrop-filter: blur(15px);
-            min-width: 420px;
+            min-width: 480px;
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
         }
 
@@ -265,6 +263,20 @@
             font-weight: 900;
             color: #ffffff;
             text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+
+        /* التصميم الجديد الخاص بقسم معاني الإشارات المترجمة */
+        .meaning-divider {
+            margin: 8px auto;
+            width: 60%;
+            border-top: 1px dashed rgba(0, 240, 255, 0.3);
+        }
+
+        #meaningValue {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -314,13 +326,14 @@
             <div class="result-panel">
                 <div class="result-brand">MAHMOUD AI COGNITIVE TRANSLATION</div>
                 <div id="translationValue">في انتظار الإشارة...</div>
+                <!-- التقسيم الجديد لواجهة إظهار المعنى المترجم -->
+                <div class="meaning-divider"></div>
+                <div id="meaningValue">قم بعمل إشارة بيدك للتحليل وقراءة المعنى الدلالي.</div>
             </div>
         </div>
     </div>
 
     <script>
-        // التكوين الأساسي للـ API الخلفي للترجمة الذكية
-        // *** برجاء إدخال مفتاح الـ API الخاص بك هنا ***
         const GEMINI_API_KEY = "ضع_مفتاح_الـ_API_الخاص_بك_هنا"; 
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
@@ -328,6 +341,7 @@
         const canvasElement = document.getElementById('output_canvas');
         const canvasCtx = canvasElement.getContext('2d');
         const translationValue = document.getElementById('translationValue');
+        const meaningValue = document.getElementById('meaningValue'); // استدعاء حقل المعنى المضاف
         const logsContainer = document.getElementById('logs-box');
         
         let lastLoggedText = ""; 
@@ -335,7 +349,7 @@
         let currentProspectiveText = ""; 
         let stabilityFrameCounter = 0; 
         
-        const MIN_FRAMES_STABLE_BEFORE_SEND = 60; // فحص الثبات قبل المعالجة لتبسيط الاستجابة
+        const MIN_FRAMES_STABLE_BEFORE_SEND = 60; 
 
         videoElement.addEventListener('loadedmetadata', () => {
             canvasElement.width = videoElement.videoWidth;
@@ -357,19 +371,32 @@
             }
         }
 
-        // معالجة البيانات وإرسالها لمحرك الترجمة الذكي لمحمود AI بالخلفية
         async function translateHandGestureWithMahmoudAi(landmarks) {
             if (isAiThinking || GEMINI_API_KEY.includes("ضع_مفتاح")) return;
             
             isAiThinking = true;
             translationValue.innerText = "جاري الترجمة عبر Mahmoud AI... 🧠";
+            meaningValue.innerText = "جاري استخلاص المعنى الدلالي والسياق المعرفي...";
 
             const simplifiedLandmarks = landmarks.map((lm, index) => {
                 return `Point ${index}: (x: ${lm.x.toFixed(3)}, y: ${lm.y.toFixed(3)})`;
             }).join("\n");
 
-            const prompt = `أنت محرك الترجمة الذكي الذاتي المسمى (Mahmoud AI) في منصة زايد بالإمارات. أمامك إحداثيات الـ 21 نقطة ليد المستخدم من مكتبة MediaPipe. حلل ثنيات الأصابع والمسافات بدقة، ثم اعطني الكلمة أو الإشارة العربية المقابلة فوراً وبدون أي مقدمات أو شرح (فقط الكلمة مع إيموجي مناسب لها إذا وجد). 
-            إذا كانت اليد مفتوحة بالكامل فالإشارة هي "التحية الإماراتية 🇦🇪" أو "مرحباً 👋"، وإذا كان السبابة والوسطى مرفوعين فقط فهي "رقم 2 / علامة النصر ✌️"، وإذا كانت مقفلة تماماً فهي "قبضة يد / قوة ✊"، وإذا كان الإبهام مرفوعاً للأعلى فقط فهي "ممتاز / موافق 👍". حلل البيانات التالية بذكاء:
+            // تم تحديث الـ Prompt ليقوم بإرجاع الكلمة والمعنى بفواصل واضحة ومحددة لفك تشفيرها برمجياً بسهولة
+            const prompt = `أنت محرك الترجمة الذكي الذاتي المسمى (Mahmoud AI) في منصة زايد بالإمارات. أمامك إحداثيات الـ 21 نقطة ليد المستخدم من مكتبة MediaPipe. حلل ثنيات الأصابع والمسافات بدقة، ثم اعطني المخرجات بصيغة محددة جداً كالتالي:
+            السطر الأول: الكلمة أو الإشارة العربية المقابلة فوراً مع إيموجي مناسب (مثال: التحية الإماراتية 🇦🇪)
+            السطر الثاني: اكتب كلمة [المعنى:] متبوعة بشرح مكثف ومختصر جداً (في سطر واحد) لمعنى الإشارة أو دلالتها الثقافية أو الاستخدام العام لها.
+
+            أمثلة للتوجيه:
+            إذا كانت اليد مفتوحة بالكامل:
+            التحية الإماراتية 👋🇦🇪
+            [المعنى:] شعار "الفوز والنصر والتميز" الثلاثي الذي أطلقه الشيخ محمد بن راشد، أو إشارة ترحيبية وطنية وثقافية.
+
+            إذا كان السبابة والوسطى مرفوعين:
+            علامة النصر ✌️
+            [المعنى:] تعبير عالمي ومحلي عن الفوز، أو الإشارة إلى رقم 2 في المعاملات الحركية.
+
+            قم بتحليل البيانات التالية بدقة فائقة وبناءً على التنسيق المطلوب حصراً بدون أي مقدمات خارجية:
             ${simplifiedLandmarks}`;
 
             try {
@@ -385,12 +412,26 @@
                 let aiResult = data.candidates[0].content.parts[0].text.trim();
                 
                 if (videoElement.srcObject) {
-                    translationValue.innerText = aiResult;
-                    pushLog(aiResult);
+                    // معالجة النص وفصل العنوان الرئيسي عن الشرح المعرفي للإشارة
+                    let lines = aiResult.split('\n');
+                    let mainTitle = lines[0] || "إشارة غير معروفة";
+                    let meaningText = "لم يتم تحديد المعنى بدقة.";
+
+                    for (let line of lines) {
+                        if (line.includes("[المعنى:]")) {
+                            meaningText = line.replace("[المعنى:]", "").trim();
+                            break;
+                        }
+                    }
+
+                    translationValue.innerText = mainTitle;
+                    meaningValue.innerText = meaningText;
+                    pushLog(mainTitle);
                 }
             } catch (error) {
                 console.error("Mahmoud AI Core Error:", error);
                 translationValue.innerText = "خطأ في الاتصال بالخادم الذكي";
+                meaningValue.innerText = "فشل في معالجة البيانات الدلالية.";
             } finally {
                 isAiThinking = false;
                 stabilityFrameCounter = 0; 
@@ -443,6 +484,7 @@
                 stabilityFrameCounter = 0;
                 if (!isAiThinking) {
                     translationValue.innerText = "في انتظار الإشارة...";
+                    meaningValue.innerText = "قم بعمل إشارة بيدك للتحليل وقراءة المعنى الدلالي.";
                 }
             }
         }
@@ -486,6 +528,7 @@
         camera.start().then(() => {
             if(GEMINI_API_KEY.includes("ضع_مفتاح")) {
                 translationValue.innerText = "برجاء إدخال الـ API Key في الكود أولاً";
+                meaningValue.innerText = "يرجى تهيئة إعدادات الاتصال السحابي للـ API.";
             } else {
                 translationValue.innerText = "في انتظار الإشارة...";
             }
